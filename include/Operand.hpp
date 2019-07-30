@@ -23,7 +23,7 @@ class Operand : public IOperand {
 			*this = src;
 		}
 
-		~Operand<T>() {
+		virtual ~Operand<T>() {
 		}
 
 		Operand	&operator=(Operand const &rhs) {
@@ -75,6 +75,7 @@ class Operand : public IOperand {
 		std::string const & toString( void ) const { return _value; }
 
 	private:
+		Operand<T>() {}
 		Factory const	&_factory;
 		eOperandType	_type;
 		std::string		_value;
