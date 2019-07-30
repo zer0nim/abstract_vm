@@ -8,6 +8,9 @@
 # include <iostream>
 # include <sstream>
 # include <math.h>
+# include <limits>
+
+enum eOperationType { Add, Sub, Mul, Div, Mod };
 
 template<typename T>
 class Operand : public IOperand {
@@ -42,72 +45,27 @@ class Operand : public IOperand {
 		// Type of the instance
 		eOperandType getType( void ) const { return Int8; }
 
-
-
-		// !!! NEED TO CHECK FOR !!!
-		// • Overflow on a value
-		// • Underflow on a value
-		// • Division/modulo by 0
-
 		// v____Operators _________________________________________________________
 
 		// Sum
 		IOperand const * operator+( IOperand const & rhs ) const {
-			double lhsVal = std::stod(_value);
-			double rhsVal = std::stod(rhs.toString());
-
-			std::stringstream strm;
-			strm << (lhsVal + rhsVal);
-
-			eOperandType type = (getPrecision() >= rhs.getPrecision()) ? _type : rhs.getType();
-			return _factory.createOperand(type, strm.str());
+			return doOperation(*this, rhs, eOperationType::Add);
 		}
 		// Difference
 		IOperand const * operator-( IOperand const & rhs ) const {
-			double lhsVal = std::stod(_value);
-			double rhsVal = std::stod(rhs.toString());
-
-			std::stringstream strm;
-			strm << (lhsVal - rhsVal);
-
-			eOperandType type = (getPrecision() >= rhs.getPrecision()) ? _type : rhs.getType();
-			return _factory.createOperand(type, strm.str());
+			return doOperation(*this, rhs, eOperationType::Sub);
 		}
 		// Product
 		IOperand const * operator*( IOperand const & rhs ) const {
-			double lhsVal = std::stod(_value);
-			double rhsVal = std::stod(rhs.toString());
-
-			std::stringstream strm;
-			strm << (lhsVal * rhsVal);
-
-			eOperandType type = (getPrecision() >= rhs.getPrecision()) ? _type : rhs.getType();
-			return _factory.createOperand(type, strm.str());
+			return doOperation(*this, rhs, eOperationType::Mul);
 		}
 		// Quotient
 		IOperand const * operator/( IOperand const & rhs ) const {
-			double lhsVal = std::stod(_value);
-			double rhsVal = std::stod(rhs.toString());
-
-			if (rhsVal == 0)
-				throw Exception::DivideByZero();
-
-			std::stringstream strm;
-			strm << (lhsVal / rhsVal);
-
-			eOperandType type = (getPrecision() >= rhs.getPrecision()) ? _type : rhs.getType();
-			return _factory.createOperand(type, strm.str());
+			return doOperation(*this, rhs, eOperationType::Div);
 		}
 		// Modulo
 		IOperand const * operator%( IOperand const & rhs ) const {
-			double lhsVal = std::stod(_value);
-			double rhsVal = std::stod(rhs.toString());
-
-			std::stringstream strm;
-			strm << fmod(lhsVal, rhsVal);
-
-			eOperandType type = (getPrecision() >= rhs.getPrecision()) ? _type : rhs.getType();
-			return _factory.createOperand(type, strm.str());
+			return doOperation(*this, rhs, eOperationType::Mod);
 		}
 
 		// ^____Operators _________________________________________________________
@@ -120,6 +78,49 @@ class Operand : public IOperand {
 		Factory const	&_factory;
 		eOperandType	_type;
 		std::string		_value;
+
+		IOperand const * doOperation(IOperand const & lhs, IOperand const & rhs, eOperationType opType) const {
+			double lhsVal = std::stod(lhs.toString());
+			double rhsVal = std::stod(rhs.toString());
+
+			// check for '/' or '%' by 0
+			if ((opType == eOperationType::Div || opType == eOperationType::Mod) &&
+			rhsVal == 0) {
+				throw Exception::DivideByZero();
+			}
+
+			// do the operation
+			long double res;
+			switch (opType) {
+				case eOperationType::Add:
+					res = lhsVal + rhsVal;
+					break;
+				case eOperationType::Sub:
+					res = lhsVal - rhsVal;
+					break;
+				case eOperationType::Mul:
+					res = lhsVal * rhsVal;
+					break;
+				case eOperationType::Div:
+					res = lhsVal / rhsVal;
+					break;
+				case eOperationType::Mod:
+					res = fmod(lhsVal, rhsVal);
+					break;
+			}
+
+			// check for overflow
+			if (res > std::numeric_limits<double>::max())
+				throw Exception::OverflowValue();
+			if (res < std::numeric_limits<double>::lowest())
+				throw Exception::UnderflowValue();
+
+			// convert to string and call the Operand factory
+			std::stringstream strm;
+			strm << res;
+			eOperandType resType = (lhs.getPrecision() >= rhs.getPrecision()) ? lhs.getType() : rhs.getType();
+			return _factory.createOperand(resType, strm.str());
+		}
 };
 
 template <>

@@ -30,12 +30,12 @@ Factory &Factory::operator=(Factory const &rhs) {
 // • Underflow on a value
 
 // char	Convert::toChar(double val) {
-// 	if (val > std::numeric_limits<char>::max() || val < std::numeric_limits<char>::min() || std::isnan(val) || std::isinf(val))
+// 	if (val > std::numeric_limits<char>::max() || val < std::numeric_limits<char>::lowest() || std::isnan(val) || std::isinf(val))
 // 		throw ImpossibleConversion();
 // 	return static_cast<char>(val);
 // }
 // int		Convert::toInt(double val) {
-// 	if (val > std::numeric_limits<int>::max() || val < std::numeric_limits<int>::min() || std::isnan(val) || std::isinf(val))
+// 	if (val > std::numeric_limits<int>::max() || val < std::numeric_limits<int>::lowest() || std::isnan(val) || std::isinf(val))
 // 		throw ImpossibleConversion();
 // 	return static_cast<int>(val);
 // }

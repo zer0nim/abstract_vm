@@ -1,11 +1,22 @@
 #include <iostream>
+#include <limits>
+#include <sstream>
+#include <cmath>
 #include "Factory.hpp"
 #include "IOperand.hpp"
+#include "Exception.hpp"
 
 int main(void) {
+	double lhsVal = 42;
+	double rhsVal = 2;
+
+	std::stringstream lhsStrm, rhsStrm;
+	lhsStrm << lhsVal;
+	rhsStrm << rhsVal;
+
 	Factory factory;
-	const IOperand *lhs = factory.createOperand(Int8, "43");
-	const IOperand *rhs = factory.createOperand(Int8, "2");
+	const IOperand *lhs = factory.createOperand(Int8, lhsStrm.str());
+	const IOperand *rhs = factory.createOperand(Int8, rhsStrm.str());
 
 	const IOperand *res1 = *lhs + *rhs;
 	std::cout << lhs->toString() << " + " << rhs->toString() << " = " << res1->toString() << std::endl;
