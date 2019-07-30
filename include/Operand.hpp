@@ -1,6 +1,7 @@
 #ifndef OPERAND_HPP
 # define OPERAND_HPP
 
+# include "Exception.hpp"
 # include "IOperand.hpp"
 # include "Factory.hpp"
 # include <string>
@@ -87,6 +88,9 @@ class Operand : public IOperand {
 		IOperand const * operator/( IOperand const & rhs ) const {
 			double lhsVal = std::stod(_value);
 			double rhsVal = std::stod(rhs.toString());
+
+			if (rhsVal == 0)
+				throw Exception::DivideByZero();
 
 			std::stringstream strm;
 			strm << (lhsVal / rhsVal);

@@ -13,11 +13,13 @@ INC_PATH	= include
 OBJ_PATH	= obj
 
 SRC		=	main.cpp \
-			Factory.cpp
+			Factory.cpp \
+			Exception.cpp
 
 HEAD	=	IOperand.hpp \
 			Operand.hpp \
-			Factory.hpp
+			Factory.hpp \
+			Exception.hpp
 
 OBJ		= $(SRC:.cpp=.o)
 
