@@ -4,6 +4,9 @@
 # include "IOperand.hpp"
 # include "Factory.hpp"
 # include <string>
+# include <iostream>
+# include <sstream>
+# include <math.h>
 
 template<typename T>
 class Operand : public IOperand {
@@ -20,10 +23,15 @@ class Operand : public IOperand {
 		}
 
 		Operand	&operator=(Operand const &rhs) {
-			if (this != &rhs)
+			if (this != &rhs) {
+				_factory = rhs.getFactory();
+				_type = rhs.getType();
 				_value = rhs._value;
+			}
 			return *this;
 		}
+
+		Factory const	&getFactory() { return _factory; }
 
 		// Precision of the type of the instance
 		int getPrecision( void ) const {
@@ -33,31 +41,73 @@ class Operand : public IOperand {
 		// Type of the instance
 		eOperandType getType( void ) const { return Int8; }
 
+
+
+		// !!! NEED TO CHECK FOR !!!
+		// • Overflow on a value
+		// • Underflow on a value
+		// • Division/modulo by 0
+
+		// v____Operators _________________________________________________________
+
 		// Sum
 		IOperand const * operator+( IOperand const & rhs ) const {
+			double lhsVal = std::stod(_value);
+			double rhsVal = std::stod(rhs.toString());
+
+			std::stringstream strm;
+			strm << (lhsVal + rhsVal);
+
 			eOperandType type = (getPrecision() >= rhs.getPrecision()) ? _type : rhs.getType();
-			return _factory.createOperand(type, "42");
+			return _factory.createOperand(type, strm.str());
 		}
 		// Difference
 		IOperand const * operator-( IOperand const & rhs ) const {
+			double lhsVal = std::stod(_value);
+			double rhsVal = std::stod(rhs.toString());
+
+			std::stringstream strm;
+			strm << (lhsVal - rhsVal);
+
 			eOperandType type = (getPrecision() >= rhs.getPrecision()) ? _type : rhs.getType();
-			return _factory.createOperand(type, "42");
+			return _factory.createOperand(type, strm.str());
 		}
 		// Product
 		IOperand const * operator*( IOperand const & rhs ) const {
+			double lhsVal = std::stod(_value);
+			double rhsVal = std::stod(rhs.toString());
+
+			std::stringstream strm;
+			strm << (lhsVal * rhsVal);
+
 			eOperandType type = (getPrecision() >= rhs.getPrecision()) ? _type : rhs.getType();
-			return _factory.createOperand(type, "42");
+			return _factory.createOperand(type, strm.str());
 		}
 		// Quotient
 		IOperand const * operator/( IOperand const & rhs ) const {
+			double lhsVal = std::stod(_value);
+			double rhsVal = std::stod(rhs.toString());
+
+			std::stringstream strm;
+			strm << (lhsVal / rhsVal);
+
 			eOperandType type = (getPrecision() >= rhs.getPrecision()) ? _type : rhs.getType();
-			return _factory.createOperand(type, "42");
+			return _factory.createOperand(type, strm.str());
 		}
 		// Modulo
 		IOperand const * operator%( IOperand const & rhs ) const {
+			double lhsVal = std::stod(_value);
+			double rhsVal = std::stod(rhs.toString());
+
+			std::stringstream strm;
+			strm << fmod(lhsVal, rhsVal);
+
 			eOperandType type = (getPrecision() >= rhs.getPrecision()) ? _type : rhs.getType();
-			return _factory.createOperand(type, "42");
+			return _factory.createOperand(type, strm.str());
 		}
+
+		// ^____Operators _________________________________________________________
+
 
 		// String representation of the instance
 		std::string const & toString( void ) const { return _value; }
