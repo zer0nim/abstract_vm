@@ -7,7 +7,7 @@
 #include "Exception.hpp"
 
 int main(void) {
-	double lhsVal = 42;
+	double lhsVal = 43;
 	double rhsVal = 2;
 
 	std::stringstream lhsStrm, rhsStrm;
@@ -15,8 +15,8 @@ int main(void) {
 	rhsStrm << rhsVal;
 
 	Factory factory;
-	const IOperand *lhs = factory.createOperand(Int8, lhsStrm.str());
-	const IOperand *rhs = factory.createOperand(Int8, rhsStrm.str());
+	const IOperand *lhs = factory.createOperand(eOperandType::Int32, lhsStrm.str());
+	const IOperand *rhs = factory.createOperand(eOperandType::Int32, rhsStrm.str());
 
 	const IOperand *res1 = *lhs + *rhs;
 	std::cout << lhs->toString() << " + " << rhs->toString() << " = " << res1->toString() << std::endl;

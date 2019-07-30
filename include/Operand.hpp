@@ -109,7 +109,7 @@ class Operand : public IOperand {
 					break;
 			}
 
-			// check for overflow
+			// check for overflow / underflow
 			if (res > std::numeric_limits<double>::max())
 				throw Exception::OverflowValue();
 			if (res < std::numeric_limits<double>::lowest())
@@ -124,14 +124,14 @@ class Operand : public IOperand {
 };
 
 template <>
-eOperandType Operand<int8_t>::getType( void ) const { return Int8; }
+eOperandType Operand<int8_t>::getType( void ) const { return eOperandType::Int8; }
 template <>
-eOperandType Operand<int16_t>::getType( void ) const { return Int16; }
+eOperandType Operand<int16_t>::getType( void ) const { return eOperandType::Int16; }
 template <>
-eOperandType Operand<int32_t>::getType( void ) const { return Int32; }
+eOperandType Operand<int32_t>::getType( void ) const { return eOperandType::Int32; }
 template <>
-eOperandType Operand<float>::getType( void ) const { return Float; }
+eOperandType Operand<float>::getType( void ) const { return eOperandType::Float; }
 template <>
-eOperandType Operand<double>::getType( void ) const { return Double; }
+eOperandType Operand<double>::getType( void ) const { return eOperandType::Double; }
 
 #endif

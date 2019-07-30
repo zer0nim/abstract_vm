@@ -1,5 +1,6 @@
 #include "Factory.hpp"
 #include "Operand.hpp"
+#include <sstream>
 
 Factory::Factory() {
     _opFactory = {
@@ -24,41 +25,74 @@ Factory &Factory::operator=(Factory const &rhs) {
     return *this;
 }
 
-// !!! NEED TO CONVERT TO THE APROPRIATE TYPE !!!
-// !!! WARNING ! NEED TO CHECK FOR !!!
-// • Overflow on a value
-// • Underflow on a value
+IOperand const * Factory::createInt8(std::string const & value) const {
+    double numVal = std::stod(value);
 
-// char	Convert::toChar(double val) {
-// 	if (val > std::numeric_limits<char>::max() || val < std::numeric_limits<char>::lowest() || std::isnan(val) || std::isinf(val))
-// 		throw ImpossibleConversion();
-// 	return static_cast<char>(val);
-// }
-// int		Convert::toInt(double val) {
-// 	if (val > std::numeric_limits<int>::max() || val < std::numeric_limits<int>::lowest() || std::isnan(val) || std::isinf(val))
-// 		throw ImpossibleConversion();
-// 	return static_cast<int>(val);
-// }
-// float	Convert::toFloat(double val) {
-// 	if (val > std::numeric_limits<float>::max())
-// 		return std::numeric_limits<float>::infinity();
-// 	return static_cast<float>(val);
-// }
+    // check for overflow / underflow
+    if (numVal > std::numeric_limits<int8_t>::max())
+        throw Exception::OverflowValue();
+    if (numVal < std::numeric_limits<int8_t>::lowest())
+        throw Exception::UnderflowValue();
 
-IOperand const * Factory::createInt8( std::string const & value ) const {
-    return new Operand<int8_t>(*this, Int8, value);
+    int8_t convertVal = static_cast<int8_t>(numVal);
+
+    std::stringstream strm;
+	strm << +convertVal;
+
+    return new Operand<int8_t>(*this, eOperandType::Int8, strm.str());
 }
-IOperand const * Factory::createInt16( std::string const & value ) const {
-    return new Operand<int16_t>(*this, Int16, value);
+IOperand const * Factory::createInt16(std::string const & value) const {
+    double numVal = std::stod(value);
+
+    // check for overflow / underflow
+    if (numVal > std::numeric_limits<int16_t>::max())
+        throw Exception::OverflowValue();
+    if (numVal < std::numeric_limits<int16_t>::lowest())
+        throw Exception::UnderflowValue();
+
+    int16_t convertVal = static_cast<int16_t>(numVal);
+    std::stringstream strm;
+	strm << convertVal;
+
+    return new Operand<int16_t>(*this, eOperandType::Int16, strm.str());
 }
-IOperand const * Factory::createInt32( std::string const & value ) const {
-    return new Operand<int32_t>(*this, Int32, value);
+IOperand const * Factory::createInt32(std::string const & value) const {
+    double numVal = std::stod(value);
+
+    // check for overflow / underflow
+    if (numVal > std::numeric_limits<int32_t>::max())
+        throw Exception::OverflowValue();
+    if (numVal < std::numeric_limits<int32_t>::lowest())
+        throw Exception::UnderflowValue();
+
+    int32_t convertVal = static_cast<int32_t>(numVal);
+    std::stringstream strm;
+	strm << convertVal;
+
+    return new Operand<int32_t>(*this, eOperandType::Int32, strm.str());
 }
-IOperand const * Factory::createFloat( std::string const & value ) const {
-    return new Operand<float>(*this, Float, value);
+IOperand const * Factory::createFloat(std::string const & value) const {
+    double numVal = std::stod(value);
+
+    // check for overflow / underflow
+    if (numVal > std::numeric_limits<float>::max())
+        throw Exception::OverflowValue();
+    if (numVal < std::numeric_limits<float>::lowest())
+        throw Exception::UnderflowValue();
+
+    float convertVal = static_cast<float>(numVal);
+    std::stringstream strm;
+	strm << convertVal;
+
+    return new Operand<float>(*this, eOperandType::Float, strm.str());
 }
-IOperand const * Factory::createDouble( std::string const & value ) const {
-    return new Operand<double>(*this, Double, value);
+IOperand const * Factory::createDouble(std::string const & value) const {
+    double numVal = std::stod(value);
+
+    std::stringstream strm;
+	strm << numVal;
+
+    return new Operand<double>(*this, eOperandType::Double, strm.str());
 }
 
 IOperand const * Factory::createOperand( eOperandType type, std::string const & value ) const {
