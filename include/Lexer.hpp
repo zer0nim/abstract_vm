@@ -14,6 +14,10 @@ class Lexer {
 
 		std::queue<Token> getTokenListCopy() const;
 		std::queue<Token> &getTokenList();
+
+		void	parseLine(std::string line, int nb);
+		void	readFromFile(std::string filename);
+		void	readFromStdin();
 	private:
 		std::queue<Token> _tokenList;
 };
