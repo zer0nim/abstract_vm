@@ -1,13 +1,13 @@
 #include "Value.hpp"
 
-Value::Value() : Token(-1) {
+Value::Value() : _opType(eOperandType::Double), _data("0.0") {
 }
 
-Value::Value(int lineNb, eOperandType opType, std::string data)
-: Token(lineNb), _opType(opType), _data(data) {
+Value::Value(eOperandType opType, std::string data)
+: _opType(opType), _data(data) {
 }
 
-Value::Value(Value const &src) : Token(src) {
+Value::Value(Value const &src) {
 	*this = src;
 }
 

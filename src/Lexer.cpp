@@ -4,6 +4,19 @@
 #include <string>
 
 Lexer::Lexer() {
+	_instructsSyntax = {
+		InstructSyntax("add", false, eInstruction::Add),
+		InstructSyntax("assert", true, eInstruction::Assert),
+		InstructSyntax("div", false, eInstruction::Div),
+		InstructSyntax("dump", false, eInstruction::Dump),
+		InstructSyntax("exit", false, eInstruction::Exit),
+		InstructSyntax("mod", false, eInstruction::Mod),
+		InstructSyntax("mul", false, eInstruction::Mul),
+		InstructSyntax("pop", false, eInstruction::Pop),
+		InstructSyntax("print", false, eInstruction::Print),
+		InstructSyntax("push", true, eInstruction::Push),
+		InstructSyntax("sub", false, eInstruction::Sub),
+	};
 }
 
 Lexer::Lexer(Lexer const &src) {
@@ -24,6 +37,12 @@ std::queue<Token> Lexer::getTokenListCopy() const { return _tokenList; }
 
 void	Lexer::parseLine(std::string line, int nb) {
 	std::cout << "parse line " << nb << " => " << line << std::endl;
+
+
+	// work in progress
+	// "^\s*add\s*(;.*)?$"
+	// _tokenList.push(Token(nb, eInstruction::Add, nullptr));
+
 }
 
 void	Lexer::readFromFile(std::string filename) {

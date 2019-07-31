@@ -1,19 +1,27 @@
 #ifndef TOKEN_HPP
 # define TOKEN_HPP
 
+# include "Value.hpp"
+
+enum eInstruction { Add, Assert, Div, Dump, Exit, Mod, Mul, Pop, Print, Push, Sub };
+
 class Token {
 	public:
-		Token(int lineNb);
+		Token(int lineNb, eInstruction instruction, Value *param);
 		Token(Token const &src);
 		virtual ~Token();
 
 		Token &operator=(Token const &rhs);
 
-		int	getLineNb() const;
+		eInstruction	getInstruction() const;
+		int				getLineNb() const;
+		const Value		*getParam() const;
 	private:
 		Token();
 
-		int	_lineNb;
+		eInstruction	_instruction;
+		Value			*_param;
+		int				_lineNb;
 };
 
 #endif

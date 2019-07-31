@@ -18,7 +18,7 @@ SRC		=	main.cpp \
 			Lexer.cpp \
 			Factory.cpp \
 			Exception.cpp \
-			Instruction.cpp \
+			InstructSyntax.cpp \
 
 HEAD	=	Token.hpp \
 			Value.hpp \
@@ -27,7 +27,7 @@ HEAD	=	Token.hpp \
 			Factory.hpp \
 			IOperand.hpp \
 			Exception.hpp \
-			Instruction.hpp \
+			InstructSyntax.hpp \
 
 OBJ		= $(SRC:.cpp=.o)
 

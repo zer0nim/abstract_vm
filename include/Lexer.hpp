@@ -2,8 +2,11 @@
 # define LEXER_HPP
 
 # include "Token.hpp"
+# include "Value.hpp"
 # include "Exception.hpp"
+# include "InstructSyntax.hpp"
 # include <queue>
+# include <vector>
 
 class Lexer {
 	public:
@@ -21,6 +24,7 @@ class Lexer {
 		void	readFromStdin();
 	private:
 		std::queue<Token> _tokenList;
+		std::vector<InstructSyntax>	_instructsSyntax;
 };
 
 #endif
