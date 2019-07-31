@@ -5,35 +5,54 @@
 
 class Exception {
 	public:
-		class UnknownInstruction : public std::exception {
+		// exception category
+		class LexerException : public std::exception {};
+		class ParserException : public std::exception {};
+		class RuntimeException : public std::exception {};
+
+		// __LexerException________________
+
+		class ErrorOpeningFile : public LexerException {
 			public:
 				virtual const char* what() const throw();
 		};
-		class OverflowValue : public std::exception {
+		class UnknownInstruction : public LexerException {
 			public:
 				virtual const char* what() const throw();
 		};
-		class UnderflowValue : public std::exception {
+
+
+		// __ParserException_______________
+
+		class ExitInstructionNotFound : public ParserException {
 			public:
 				virtual const char* what() const throw();
 		};
-		class PopOnEmptyStack : public std::exception {
+
+
+		// __RuntimeException______________
+
+		class OverflowValue : public RuntimeException {
 			public:
 				virtual const char* what() const throw();
 		};
-		class DivideByZero : public std::exception {
+		class UnderflowValue : public RuntimeException {
 			public:
 				virtual const char* what() const throw();
 		};
-		class ExitInstructionNotFound : public std::exception {
+		class PopOnEmptyStack : public RuntimeException {
 			public:
 				virtual const char* what() const throw();
 		};
-		class FalseAssertion : public std::exception {
+		class DivideByZero : public RuntimeException {
 			public:
 				virtual const char* what() const throw();
 		};
-		class needTwoValuesInStack : public std::exception {
+		class FalseAssertion : public RuntimeException {
+			public:
+				virtual const char* what() const throw();
+		};
+		class needTwoValuesInStack : public RuntimeException {
 			public:
 				virtual const char* what() const throw();
 		};

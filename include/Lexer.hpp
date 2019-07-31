@@ -2,6 +2,7 @@
 # define LEXER_HPP
 
 # include "Token.hpp"
+# include "Exception.hpp"
 # include <queue>
 
 class Lexer {

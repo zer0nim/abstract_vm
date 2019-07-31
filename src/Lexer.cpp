@@ -29,10 +29,8 @@ void	Lexer::parseLine(std::string line, int nb) {
 void	Lexer::readFromFile(std::string filename) {
 	std::ifstream   ifs(filename);
 
-	if (!ifs) {
-		std::cerr << "Error opening files!" << std::endl;
-		// !!! NEED TO TROW EXCEPTION !
-	}
+	if (!ifs)
+		throw Exception::ErrorOpeningFile();
 
 	// parse the file line by line
 	std::string line;
