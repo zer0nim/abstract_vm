@@ -3,6 +3,8 @@
 
 # include "IOperand.hpp"
 # include <string>
+# include <iostream>
+# include <unordered_map>
 
 class Value {
 	public:
@@ -15,9 +17,13 @@ class Value {
 
 		eOperandType	getOpType() const;
 		std::string		getData() const;
+
+		static std::unordered_map<int, std::string> operandMap;
 	private:
 		eOperandType	_opType;
 		std::string		_data;
 };
+
+std::ostream & operator << (std::ostream &out, const Value &c);
 
 #endif

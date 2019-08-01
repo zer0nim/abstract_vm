@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <regex>
 
 Lexer::Lexer() {
 	_instructsSyntax = {
@@ -38,11 +39,23 @@ std::queue<Token> Lexer::getTokenListCopy() const { return _tokenList; }
 void	Lexer::parseLine(std::string line, int nb) {
 	std::cout << "parse line " << nb << " => " << line << std::endl;
 
+	// comment or blank line
+	if (std::regex_match(line, std::regex("^(;.*)?$")))
+		return;
 
-	// work in progress
-	// "^\s*add\s*(;.*)?$"
-	// _tokenList.push(Token(nb, eInstruction::Add, nullptr));
+	Token	newToken;
+	auto it = _instructsSyntax.begin();
+	while (it != _instructsSyntax.end() && !it->createToken(nb, line, newToken))
+		++it;
 
+	// if there is no match
+	if (it == _instructsSyntax.end()) {
+		std::cout << "Error !" << std::endl;
+	} else {
+		std::cout << newToken << std::endl;
+		_tokenList.push(newToken);
+	}
+	std::cout << std::endl;
 }
 
 void	Lexer::readFromFile(std::string filename) {
@@ -66,5 +79,5 @@ void	Lexer::readFromStdin() {
 	for (size_t nb = 1; std::getline(std::cin, line)
 	&& line.find(";;") == std::string::npos; nb++) {
 		parseLine(line, nb);
-    }
+	}
 }
