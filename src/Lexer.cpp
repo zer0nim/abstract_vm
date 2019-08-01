@@ -34,8 +34,8 @@ Lexer &Lexer::operator=(Lexer const &rhs) {
 	return *this;
 }
 
-std::queue<Token> &Lexer::getTokenList() { return _tokenList; }
-std::queue<Token> Lexer::getTokenListCopy() const { return _tokenList; }
+std::vector<Token> &Lexer::getTokenList() { return _tokenList; }
+std::vector<Token> Lexer::getTokenListCopy() const { return _tokenList; }
 
 void	Lexer::parseLine(std::string line, int nb) {
 	// comment or blank line
@@ -53,7 +53,7 @@ void	Lexer::parseLine(std::string line, int nb) {
 	}
 
 	// else create the token
-	_tokenList.push(newToken);
+	_tokenList.push_back(newToken);
 }
 
 void	Lexer::readFromFile(std::string filename) {

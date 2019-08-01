@@ -16,18 +16,20 @@ SRC		=	main.cpp \
 			Token.cpp \
 			Value.cpp \
 			Lexer.cpp \
+			Parser.cpp \
 			Factory.cpp \
 			Exception.cpp \
-			InstructSyntax.cpp \
+			InstructSyntax.cpp
 
 HEAD	=	Token.hpp \
 			Value.hpp \
 			Lexer.hpp \
+			Parser.hpp \
 			Operand.hpp \
 			Factory.hpp \
 			IOperand.hpp \
 			Exception.hpp \
-			InstructSyntax.hpp \
+			InstructSyntax.hpp
 
 OBJ		= $(SRC:.cpp=.o)
 

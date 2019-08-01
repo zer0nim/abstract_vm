@@ -3,6 +3,7 @@
 #include <sstream>
 #include <cmath>
 #include "Lexer.hpp"
+#include "Parser.hpp"
 #include "Factory.hpp"
 #include "IOperand.hpp"
 #include "Exception.hpp"
@@ -35,12 +36,15 @@ int main(int argc, char const *argv[]) {
 	// std::cout << lhs->toString() << " % " << rhs->toString() << " = " << res5->toString() << std::endl;
 
 	Lexer lexer;
+	Parser parser;
 
 	if (argc > 1) {
 		lexer.readFromFile(argv[1]);
 	} else {
 		lexer.readFromStdin();
 	}
+
+	parser.verifyGrammar(lexer.getTokenList());
 
 	return 0;
 }

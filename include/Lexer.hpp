@@ -5,7 +5,6 @@
 # include "Value.hpp"
 # include "Exception.hpp"
 # include "InstructSyntax.hpp"
-# include <queue>
 # include <vector>
 
 class Lexer {
@@ -16,14 +15,14 @@ class Lexer {
 
 		Lexer &operator=(Lexer const &rhs);
 
-		std::queue<Token> getTokenListCopy() const;
-		std::queue<Token> &getTokenList();
+		std::vector<Token> getTokenListCopy() const;
+		std::vector<Token> &getTokenList();
 
 		void	parseLine(std::string line, int nb);
 		void	readFromFile(std::string filename);
 		void	readFromStdin();
 	private:
-		std::queue<Token> _tokenList;
+		std::vector<Token> _tokenList;
 		std::vector<InstructSyntax>	_instructsSyntax;
 };
 
