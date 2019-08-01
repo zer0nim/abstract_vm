@@ -15,8 +15,8 @@ assert double(42.42)
 exit
 
 ; test Pas ok :
-int32(21 ;)
+int32(21);
 int128(42)
 ad d
 popp
-pu int(33))
+push int((33)

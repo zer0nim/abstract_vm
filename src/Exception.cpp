@@ -1,4 +1,5 @@
 #include "Exception.hpp"
+#include <string>
 
 Exception::Exception() {
 }
@@ -6,18 +7,47 @@ Exception::Exception() {
 Exception::~Exception() {
 }
 
+
+// __LexerException________________
+
 const char* Exception::ErrorOpeningFile::what() const throw() {
     return ("Error while attempting to open file");
 }
-const char* Exception::UnknownInstruction::what() const throw() {
-    return ("An instruction is unknown");
+
+Exception::UnknownInstruction::UnknownInstruction()
+: lineNb(-1) {
 }
 
+Exception::UnknownInstruction::UnknownInstruction(int nLineNb)
+: lineNb(nLineNb) {
+}
+
+Exception::UnknownInstruction::UnknownInstruction(UnknownInstruction const &src) {
+    *this = src;
+}
+
+Exception::UnknownInstruction::~UnknownInstruction() {
+}
+
+Exception::UnknownInstruction &Exception::UnknownInstruction::operator=(UnknownInstruction const &rhs) {
+    if (this != &rhs)
+        lineNb = rhs.lineNb;
+    return *this;
+}
+
+const char* Exception::UnknownInstruction::what() const throw() {
+    return ("Line " + std::to_string(lineNb) + " : Error : An instruction is unknown").c_str();
+}
+
+
+// __ParserException_______________
 
 const char* Exception::ExitInstructionNotFound::what() const throw() {
     return ("The program doesn’t have an exit instruction");
 }
 
+
+// __RuntimeException______________
 
 const char* Exception::OverflowValue::what() const throw() {
     return ("Overflow on a value");

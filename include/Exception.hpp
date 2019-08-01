@@ -18,9 +18,17 @@ class Exception {
 		};
 		class UnknownInstruction : public LexerException {
 			public:
-				virtual const char* what() const throw();
-		};
+				UnknownInstruction();
+				UnknownInstruction(int nLineNb);
+				UnknownInstruction(UnknownInstruction const &src);
+				virtual ~UnknownInstruction();
 
+				UnknownInstruction &operator=(UnknownInstruction const &rhs);
+
+				virtual const char* what() const throw();
+
+				int	lineNb;
+		};
 
 		// __ParserException_______________
 
