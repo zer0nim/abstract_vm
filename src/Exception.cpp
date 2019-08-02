@@ -45,6 +45,9 @@ const char* Exception::UnknownInstruction::what() const throw() {
 const char* Exception::ExitInstructionNotFound::what() const throw() {
     return ("The program doesn’t have an exit instruction");
 }
+const char* Exception::UnreachableCode::what() const throw() {
+    return ("Unreachable code after the exit instruction");
+}
 
 
 // __RuntimeException______________

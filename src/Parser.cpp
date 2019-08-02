@@ -1,4 +1,5 @@
 #include "Parser.hpp"
+#include "Exception.hpp"
 
 Parser::Parser() {
 }
@@ -17,10 +18,18 @@ Parser &Parser::operator=(Parser const &rhs) {
 }
 
 void	Parser::verifyGrammar(std::vector<Token> tokenList) const {
-	std::cout << "In verifyGrammar:" << std::endl << std::endl;
-	for (Token token : tokenList) {
-		std::cout << "token: " << token << std::endl;
+	int exitCnt = 0;
+
+	for (auto it = tokenList.begin(); it != tokenList.end(); ++it) {
+		if ((*it).getInstruction() == eInstruction::Exit) {
+			++exitCnt;
+			// check if there is code after the exit instruction
+			if (it + 1 != tokenList.end())
+				throw Exception::UnreachableCode();
+		}
 	}
 
-	// need to check grammar errors like no exit instr, no enought attribute, ...
+	// if there is no exit instruction
+	if (exitCnt == 0)
+		throw Exception::ExitInstructionNotFound();
 }

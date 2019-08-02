@@ -36,6 +36,10 @@ class Exception {
 			public:
 				virtual const char* what() const throw();
 		};
+		class UnreachableCode : public ParserException {
+			public:
+				virtual const char* what() const throw();
+		};
 
 
 		// __RuntimeException______________
