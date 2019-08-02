@@ -1,12 +1,16 @@
 #include "Instructions.hpp"
+#include "Exception.hpp"
 
 // • add: Unstacks the first two values on the stack, adds them together and stacks the
 // result. If the number of values on the stack is strictly inferior to 2, the program
 // execution must stop with an error.
-void	instrAdd(std::vector<IOperand *> &stack, Value *param) {
+void	instrAdd(std::vector<IOperand *> &stack) {
 	std::cout << "-add" << std::endl;
-	(void)stack;
-	(void)param;
+	if (stack.size() < 2)
+		throw Exception::needTwoValuesInStack();
+
+	IOperand *val = stack.back();
+	stack.pop_back();
 }
 
 // • assert v: Asserts that the value at the top of the stack is equal to the one passed

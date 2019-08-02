@@ -7,7 +7,7 @@
 
 typedef void (*InstrFunc)(std::vector<IOperand *> &stack, Value *param);
 
-void	instrAdd(std::vector<IOperand *> &stack, Value *param);
+void	instrAdd(std::vector<IOperand *> &stack);
 void	instrAssert(std::vector<IOperand *> &stack, Value *param);
 void	instrDiv(std::vector<IOperand *> &stack, Value *param);
 void	instrDump(std::vector<IOperand *> &stack, Value *param);

@@ -1,4 +1,5 @@
 #include "Vm.hpp"
+#include "Exception.hpp"
 
 std::vector<InstrFunc> Vm::_instrFuncs = {
 	&instrAdd,
@@ -34,12 +35,15 @@ std::vector<IOperand *>	Vm::getStack() const { return _stack; }
 
 
 bool	Vm::run(std::vector<Token> &tokenList) {
-	bool exitStatus = true;
-
 	for (auto token : tokenList) {
-		// std::cout << "Token: " << token << std::endl;
-		Vm::_instrFuncs[token.getInstruction()](_stack, token.getParam());
+		try {
+			Vm::_instrFuncs[token.getInstruction()](_stack, token.getParam());
+		}
+		catch(const Exception::RuntimeException& e) {
+			std::cerr << "[RuntimeException] Line " << token.getLineNb() << " : " << e.what() << '\n';
+			return false;
+		}
 	}
 
-	return exitStatus;
+	return true;
 }
