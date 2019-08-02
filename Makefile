@@ -12,16 +12,19 @@ SRC_PATH	= src
 INC_PATH	= include
 OBJ_PATH	= obj
 
-SRC		=	main.cpp \
+SRC		=	Vm.cpp \
+			main.cpp \
 			Token.cpp \
 			Value.cpp \
 			Lexer.cpp \
 			Parser.cpp \
 			Factory.cpp \
 			Exception.cpp \
+			Instructions.cpp \
 			InstructSyntax.cpp
 
-HEAD	=	Token.hpp \
+HEAD	=	Vm.hpp \
+			Token.hpp \
 			Value.hpp \
 			Lexer.hpp \
 			Parser.hpp \
@@ -29,6 +32,7 @@ HEAD	=	Token.hpp \
 			Factory.hpp \
 			IOperand.hpp \
 			Exception.hpp \
+			Instructions.hpp \
 			InstructSyntax.hpp
 
 OBJ		= $(SRC:.cpp=.o)

@@ -17,7 +17,7 @@ Parser &Parser::operator=(Parser const &rhs) {
 	return *this;
 }
 
-bool	Parser::verifyGrammar(std::vector<Token> tokenList) const {
+bool	Parser::verifyGrammar(std::vector<Token> &tokenList) const {
 	bool exitStatus = true;
 
 	try {

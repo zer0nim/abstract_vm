@@ -44,7 +44,7 @@ Token &Token::operator=(Token const &rhs) {
 }
 
 eInstruction	Token::getInstruction() const { return _instruction; }
-const Value		*Token::getParam() const { return _param; }
+Value			*Token::getParam() const { return _param; }
 int	Token::getLineNb() const { return _lineNb; }
 
 std::ostream & operator << (std::ostream &out, const Token &c) {

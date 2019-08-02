@@ -2,6 +2,7 @@
 #include <limits>
 #include <sstream>
 #include <cmath>
+#include "Vm.hpp"
 #include "Lexer.hpp"
 #include "Parser.hpp"
 #include "Factory.hpp"
@@ -35,8 +36,9 @@ int main(int argc, char const *argv[]) {
 	// const IOperand *res5 = *lhs % *rhs;
 	// std::cout << lhs->toString() << " % " << rhs->toString() << " = " << res5->toString() << std::endl;
 
-	Lexer lexer;
-	Parser parser;
+	Lexer	lexer;
+	Parser	parser;
+	Vm		vm;
 
 	if (argc > 1) {
 		if (!lexer.readFromFile(argv[1]))
@@ -47,6 +49,9 @@ int main(int argc, char const *argv[]) {
 	}
 
 	if (!parser.verifyGrammar(lexer.getTokenList()))
+		return 1;
+
+	if (!vm.run(lexer.getTokenList()))
 		return 1;
 
 	return 0;

@@ -17,7 +17,7 @@ class Token {
 
 		eInstruction	getInstruction() const;
 		int				getLineNb() const;
-		const Value		*getParam() const;
+		Value			*getParam() const;
 
 		static std::unordered_map<int, std::string> instructMap;
 	private:
