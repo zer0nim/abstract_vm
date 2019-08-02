@@ -39,12 +39,15 @@ int main(int argc, char const *argv[]) {
 	Parser parser;
 
 	if (argc > 1) {
-		lexer.readFromFile(argv[1]);
+		if (!lexer.readFromFile(argv[1]))
+			return 1;
 	} else {
-		lexer.readFromStdin();
+		if (!lexer.readFromStdin())
+			return 1;
 	}
 
-	parser.verifyGrammar(lexer.getTokenList());
+	if (!parser.verifyGrammar(lexer.getTokenList()))
+		return 1;
 
 	return 0;
 }

@@ -36,7 +36,7 @@ Exception::UnknownInstruction &Exception::UnknownInstruction::operator=(UnknownI
 }
 
 const char* Exception::UnknownInstruction::what() const throw() {
-    return ("Line " + std::to_string(lineNb) + " : Error : An instruction is unknown").c_str();
+    return ("Line " + std::to_string(lineNb) + " : An instruction is unknown").c_str();
 }
 
 

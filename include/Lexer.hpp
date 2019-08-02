@@ -19,8 +19,8 @@ class Lexer {
 		std::vector<Token> &getTokenList();
 
 		void	parseLine(std::string line, int nb);
-		void	readFromFile(std::string filename);
-		void	readFromStdin();
+		bool	readFromFile(std::string filename);
+		bool	readFromStdin();
 	private:
 		std::vector<Token> _tokenList;
 		std::vector<InstructSyntax>	_instructsSyntax;

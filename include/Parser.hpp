@@ -12,7 +12,7 @@ class Parser {
 
 		Parser &operator=(Parser const &rhs);
 
-		void	verifyGrammar(std::vector<Token> tokenList) const;
+		bool	verifyGrammar(std::vector<Token> tokenList) const;
 	private:
 };
 

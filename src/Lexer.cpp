@@ -56,7 +56,8 @@ void	Lexer::parseLine(std::string line, int nb) {
 	_tokenList.push_back(newToken);
 }
 
-void	Lexer::readFromFile(std::string filename) {
+bool	Lexer::readFromFile(std::string filename) {
+	bool exitStatus = true;
 	std::ifstream   ifs(filename);
 
 	if (!ifs)
@@ -69,14 +70,17 @@ void	Lexer::readFromFile(std::string filename) {
 			parseLine(line, nb);
 		}
 		catch(const Exception::LexerException& e) {
-			std::cerr << e.what() << '\n';
+			exitStatus = false;
+			std::cerr << "[LexerException] " << e.what() << '\n';
 		}
 	}
 
 	ifs.close();
+	return exitStatus;
 }
 
-void	Lexer::readFromStdin() {
+bool	Lexer::readFromStdin() {
+	bool exitStatus = true;
 	// parse stdin line by line
 	std::string line;
 	for (size_t nb = 1; std::getline(std::cin, line); nb++) {
@@ -84,9 +88,11 @@ void	Lexer::readFromStdin() {
 			parseLine(line, nb);
 		}
 		catch(const Exception::LexerException& e) {
-			std::cerr << e.what() << '\n';
+			exitStatus = false;
+			std::cerr << "[LexerException] " << e.what() << '\n';
 		}
 		if (line.find(";;") != std::string::npos)
 			break;
 	}
+	return exitStatus;
 }

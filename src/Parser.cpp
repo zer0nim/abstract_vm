@@ -17,19 +17,29 @@ Parser &Parser::operator=(Parser const &rhs) {
 	return *this;
 }
 
-void	Parser::verifyGrammar(std::vector<Token> tokenList) const {
-	int exitCnt = 0;
+bool	Parser::verifyGrammar(std::vector<Token> tokenList) const {
+	bool exitStatus = true;
 
-	for (auto it = tokenList.begin(); it != tokenList.end(); ++it) {
-		if ((*it).getInstruction() == eInstruction::Exit) {
-			++exitCnt;
-			// check if there is code after the exit instruction
-			if (it + 1 != tokenList.end())
-				throw Exception::UnreachableCode();
+	try {
+		int exitCnt = 0;
+
+		for (auto it = tokenList.begin(); it != tokenList.end(); ++it) {
+			if ((*it).getInstruction() == eInstruction::Exit) {
+				++exitCnt;
+				// check if there is code after the exit instruction
+				if (it + 1 != tokenList.end())
+					throw Exception::UnreachableCode();
+			}
 		}
+
+		// if there is no exit instruction
+		if (exitCnt == 0)
+			throw Exception::ExitInstructionNotFound();
+	}
+	catch(const Exception::ParserException& e) {
+		exitStatus = false;
+		std::cerr << "[ParserException] " << e.what() << '\n';
 	}
 
-	// if there is no exit instruction
-	if (exitCnt == 0)
-		throw Exception::ExitInstructionNotFound();
+	return exitStatus;
 }
