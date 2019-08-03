@@ -129,7 +129,7 @@ void	instrPrint(Factory &factory, std::vector<IOperand const *> &stack, Value *p
 		throw Exception::FalseAssertion();
 
 	char c = static_cast<char>(std::stod(top->toString()));
-	std::cout << c << std::endl;
+	std::cout << c;
 }
 
 // • push v: Pushes the value v at the top of the stack. The value v must have one of
