@@ -1,5 +1,6 @@
 #include "Parser.hpp"
 #include "Exception.hpp"
+#include "termcolor.hpp"
 #include <iostream>
 
 Parser::Parser() {
@@ -26,8 +27,8 @@ bool	Parser::verifyGrammar(std::vector<Token> &tokenList) const {
 			if ((*it).getInstruction() == eInstruction::Exit) {
 				// check if there is code after the exit instruction
 				if (it + 1 != tokenList.end()) {
-					std::cout << "[ParserWarning] Line " << (*(it + 1)).getLineNb()
-						<< " : Code after the exit instruction is unreachable" << std::endl;
+					std::cout << termcolor::yellow << "[ParserWarning] Line " << (*(it + 1)).getLineNb()
+						<< " : Code after the exit instruction is unreachable" << termcolor::reset << std::endl;
 					return true;
 				}
 			}
@@ -35,7 +36,7 @@ bool	Parser::verifyGrammar(std::vector<Token> &tokenList) const {
 	}
 	catch(const Exception::ParserException& e) {
 		exitStatus = false;
-		std::cerr << "[ParserException] " << e.what() << std::endl;
+		std::cerr << termcolor::red << "[ParserException] " << e.what() << termcolor::reset << std::endl;
 	}
 
 	return exitStatus;

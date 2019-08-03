@@ -32,6 +32,7 @@ HEAD	=	Vm.hpp \
 			Factory.hpp \
 			IOperand.hpp \
 			Exception.hpp \
+			termcolor.hpp \
 			Instructions.hpp \
 			InstructSyntax.hpp
 

@@ -1,5 +1,6 @@
 #include "Vm.hpp"
 #include "Exception.hpp"
+#include "termcolor.hpp"
 
 std::vector<InstrFunc> Vm::_instrFuncs = {
 	&instrAdd,
@@ -44,11 +45,11 @@ bool	Vm::run(std::vector<Token> &tokenList) {
 			Vm::_instrFuncs[token.getInstruction()](_factory, _stack, token.getParam());
 		}
 		catch(const Exception::RuntimeException& e) {
-			std::cerr << "[RuntimeException] Line " << token.getLineNb() << " : " << e.what() << std::endl;
+			std::cerr << termcolor::red << "[RuntimeException] Line " << token.getLineNb() << " : " << e.what() << termcolor::reset << std::endl;
 			return false;
 		}
 	}
 
-	std::cerr << "[RuntimeException] The program doesn’t have an exit instruction" << std::endl;
+	std::cerr << termcolor::red << "[RuntimeException] The program doesn’t have an exit instruction" << termcolor::reset << std::endl;
 	return false;
 }

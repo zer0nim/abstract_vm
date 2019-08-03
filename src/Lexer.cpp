@@ -1,5 +1,6 @@
 #include "Lexer.hpp"
 #include "Exception.hpp"
+#include "termcolor.hpp"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -61,7 +62,7 @@ bool	Lexer::readFromFile(std::string filename) {
 	std::ifstream   ifs(filename);
 
 	if (!ifs) {
-		std::cerr << "[LexerException] Error while attempting to open file" << std::endl;
+		std::cerr << termcolor::red << "[LexerException] Error while attempting to open file" << termcolor::reset << std::endl;
 		return false;
 	}
 
@@ -73,7 +74,7 @@ bool	Lexer::readFromFile(std::string filename) {
 		}
 		catch(const Exception::LexerException& e) {
 			exitStatus = false;
-			std::cerr << "[LexerException] " << e.what() << std::endl;
+			std::cerr << termcolor::red << "[LexerException] " << e.what() << termcolor::reset << std::endl;
 		}
 	}
 
@@ -91,7 +92,7 @@ bool	Lexer::readFromStdin() {
 		}
 		catch(const Exception::LexerException& e) {
 			exitStatus = false;
-			std::cerr << "[LexerException] " << e.what() << std::endl;
+			std::cerr << termcolor::red << "[LexerException] " << e.what() << termcolor::reset << std::endl;
 		}
 		if (line.find(";;") != std::string::npos)
 			break;
