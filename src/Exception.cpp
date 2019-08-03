@@ -10,10 +10,6 @@ Exception::~Exception() {
 
 // __LexerException________________
 
-const char* Exception::ErrorOpeningFile::what() const throw() {
-    return ("Error while attempting to open file");
-}
-
 Exception::UnknownInstruction::UnknownInstruction()
 : lineNb(-1) {
 }

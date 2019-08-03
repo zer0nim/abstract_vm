@@ -60,8 +60,10 @@ bool	Lexer::readFromFile(std::string filename) {
 	bool exitStatus = true;
 	std::ifstream   ifs(filename);
 
-	if (!ifs)
-		throw Exception::ErrorOpeningFile();
+	if (!ifs) {
+		std::cerr << "[LexerException] Error while attempting to open file" << std::endl;
+		return false;
+	}
 
 	// parse the file line by line
 	std::string line;
@@ -71,7 +73,7 @@ bool	Lexer::readFromFile(std::string filename) {
 		}
 		catch(const Exception::LexerException& e) {
 			exitStatus = false;
-			std::cerr << "[LexerException] " << e.what() << '\n';
+			std::cerr << "[LexerException] " << e.what() << std::endl;
 		}
 	}
 
@@ -89,7 +91,7 @@ bool	Lexer::readFromStdin() {
 		}
 		catch(const Exception::LexerException& e) {
 			exitStatus = false;
-			std::cerr << "[LexerException] " << e.what() << '\n';
+			std::cerr << "[LexerException] " << e.what() << std::endl;
 		}
 		if (line.find(";;") != std::string::npos)
 			break;

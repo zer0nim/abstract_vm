@@ -1,0 +1,9 @@
+; -------------
+; sample.avm -
+; -------------
+
+push int32(44) ; comment
+push int32(2) ; comment
+sub
+dump
+exit

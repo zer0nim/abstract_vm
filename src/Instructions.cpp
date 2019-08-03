@@ -28,8 +28,9 @@ void	instrAssert(Factory &factory, std::vector<IOperand const *> &stack, Value *
 	(void)factory; // unused param
 
 	IOperand const *top = stack.back();
+	IOperand const *paramV = factory.createOperand(param->getOpType(), param->getData());
 
-	if (top->toString() != param->getData())
+	if (paramV->getType() != top->getType() || paramV->toString() != top->toString())
 		throw Exception::FalseAssertion();
 }
 

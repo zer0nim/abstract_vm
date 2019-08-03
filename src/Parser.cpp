@@ -1,5 +1,6 @@
 #include "Parser.hpp"
 #include "Exception.hpp"
+#include <iostream>
 
 Parser::Parser() {
 }
@@ -38,7 +39,7 @@ bool	Parser::verifyGrammar(std::vector<Token> &tokenList) const {
 	}
 	catch(const Exception::ParserException& e) {
 		exitStatus = false;
-		std::cerr << "[ParserException] " << e.what() << '\n';
+		std::cerr << "[ParserException] " << e.what() << std::endl;
 	}
 
 	return exitStatus;

@@ -12,10 +12,6 @@ class Exception {
 
 		// __LexerException________________
 
-		class ErrorOpeningFile : public LexerException {
-			public:
-				virtual const char* what() const throw();
-		};
 		class UnknownInstruction : public LexerException {
 			public:
 				UnknownInstruction();

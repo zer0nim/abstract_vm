@@ -40,7 +40,7 @@ bool	Vm::run(std::vector<Token> &tokenList) {
 			Vm::_instrFuncs[token.getInstruction()](_factory, _stack, token.getParam());
 		}
 		catch(const Exception::RuntimeException& e) {
-			std::cerr << "[RuntimeException] Line " << token.getLineNb() << " : " << e.what() << '\n';
+			std::cerr << "[RuntimeException] Line " << token.getLineNb() << " : " << e.what() << std::endl;
 			return false;
 		}
 	}
