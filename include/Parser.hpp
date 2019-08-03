@@ -14,6 +14,7 @@ class Parser {
 
 		bool	verifyGrammar(std::vector<Token> &tokenList) const;
 	private:
+		static std::vector<bool>	_instrsTakeParam;
 };
 
 #endif

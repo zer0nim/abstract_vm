@@ -10,34 +10,19 @@ Exception::~Exception() {
 
 // __LexerException________________
 
-Exception::UnknownInstruction::UnknownInstruction()
-: lineNb(-1) {
-}
-
-Exception::UnknownInstruction::UnknownInstruction(int nLineNb)
-: lineNb(nLineNb) {
-}
-
-Exception::UnknownInstruction::UnknownInstruction(UnknownInstruction const &src) {
-    *this = src;
-}
-
-Exception::UnknownInstruction::~UnknownInstruction() {
-}
-
-Exception::UnknownInstruction &Exception::UnknownInstruction::operator=(UnknownInstruction const &rhs) {
-    if (this != &rhs)
-        lineNb = rhs.lineNb;
-    return *this;
-}
-
 const char* Exception::UnknownInstruction::what() const throw() {
-    return ("Line " + std::to_string(lineNb) + " : An instruction is unknown").c_str();
+    return ("An instruction is unknown");
 }
 
 
 // __ParserException_______________
 
+const char* Exception::InstrTakeParam::what() const throw() {
+    return ("The instruction need a parameter");
+}
+const char* Exception::InstrDontTakeParam::what() const throw() {
+    return ("The instruction don't take parameter");
+}
 
 // __RuntimeException______________
 

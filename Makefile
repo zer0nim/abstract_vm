@@ -20,8 +20,7 @@ SRC		=	Vm.cpp \
 			Parser.cpp \
 			Factory.cpp \
 			Exception.cpp \
-			Instructions.cpp \
-			InstructSyntax.cpp
+			Instructions.cpp
 
 HEAD	=	Vm.hpp \
 			Token.hpp \
@@ -33,8 +32,7 @@ HEAD	=	Vm.hpp \
 			IOperand.hpp \
 			Exception.hpp \
 			termcolor.hpp \
-			Instructions.hpp \
-			InstructSyntax.hpp
+			Instructions.hpp
 
 OBJ		= $(SRC:.cpp=.o)
 

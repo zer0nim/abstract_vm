@@ -1,0 +1,6 @@
+push ; push without param
+push int32(42)
+push int32(2)
+sub int32(12) ; push with extra param
+dump
+exit

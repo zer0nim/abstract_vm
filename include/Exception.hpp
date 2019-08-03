@@ -14,22 +14,20 @@ class Exception {
 
 		class UnknownInstruction : public LexerException {
 			public:
-				UnknownInstruction();
-				UnknownInstruction(int nLineNb);
-				UnknownInstruction(UnknownInstruction const &src);
-				virtual ~UnknownInstruction();
-
-				UnknownInstruction &operator=(UnknownInstruction const &rhs);
-
 				virtual const char* what() const throw();
-
-				int	lineNb;
 		};
 
 
 		// __ParserException_______________
 
-
+		class InstrTakeParam : public ParserException {
+			public:
+				virtual const char* what() const throw();
+		};
+		class InstrDontTakeParam : public ParserException {
+			public:
+				virtual const char* what() const throw();
+		};
 
 		// __RuntimeException______________
 
