@@ -12,6 +12,3 @@ push 	int32(42)
 dump
 pop
 assert double(42.42)
-; test 2 :
-; exit
-; dump

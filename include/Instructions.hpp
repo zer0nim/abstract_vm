@@ -12,7 +12,6 @@ void	instrAdd(Factory &factory, std::vector<IOperand const *> &stack, Value *par
 void	instrAssert(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
 void	instrDiv(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
 void	instrDump(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
-void	instrExit(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
 void	instrMod(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
 void	instrMul(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
 void	instrPop(Factory &factory, std::vector<IOperand const *> &stack, Value *param);

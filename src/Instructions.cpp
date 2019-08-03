@@ -66,15 +66,6 @@ void	instrDump(Factory &factory, std::vector<IOperand const *> &stack, Value *pa
 		std::cout << (*it)->toString() << std::endl;
 }
 
-// • exit: Terminate the execution of the current program. If this instruction does not
-// appears while all others instruction has been processed, the execution must stop
-// with an error.
-void	instrExit(Factory &factory, std::vector<IOperand const *> &stack, Value *param) {
-	(void)factory; // unused param
-	(void)param; // unused param
-	(void)stack; // unused param
-}
-
 // • mod: Unstacks the first two values on the stack, calculates the modulus, then
 // stacks the result. If the number of values on the stack is strictly inferior to 2, the
 // program execution must stop with an error. Moreover, if the divisor is equal to 0,

@@ -22,20 +22,16 @@ bool	Parser::verifyGrammar(std::vector<Token> &tokenList) const {
 	bool exitStatus = true;
 
 	try {
-		int exitCnt = 0;
-
 		for (auto it = tokenList.begin(); it != tokenList.end(); ++it) {
 			if ((*it).getInstruction() == eInstruction::Exit) {
-				++exitCnt;
 				// check if there is code after the exit instruction
-				if (it + 1 != tokenList.end())
-					throw Exception::UnreachableCode();
+				if (it + 1 != tokenList.end()) {
+					std::cout << "[ParserWarning] Line " << (*(it + 1)).getLineNb()
+						<< " : Code after the exit instruction is unreachable" << std::endl;
+					return true;
+				}
 			}
 		}
-
-		// if there is no exit instruction
-		if (exitCnt == 0)
-			throw Exception::ExitInstructionNotFound();
 	}
 	catch(const Exception::ParserException& e) {
 		exitStatus = false;

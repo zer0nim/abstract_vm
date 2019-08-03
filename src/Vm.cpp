@@ -6,7 +6,7 @@ std::vector<InstrFunc> Vm::_instrFuncs = {
 	&instrAssert,
 	&instrDiv,
 	&instrDump,
-	&instrExit,
+	nullptr, // exit instruction
 	&instrMod,
 	&instrMul,
 	&instrPop,
@@ -37,6 +37,10 @@ std::vector<IOperand const *>	Vm::getStack() const { return _stack; }
 bool	Vm::run(std::vector<Token> &tokenList) {
 	for (auto token : tokenList) {
 		try {
+			// stop the execution on exit
+			if (token.getInstruction() == eInstruction::Exit)
+				return true;
+
 			Vm::_instrFuncs[token.getInstruction()](_factory, _stack, token.getParam());
 		}
 		catch(const Exception::RuntimeException& e) {
@@ -45,5 +49,6 @@ bool	Vm::run(std::vector<Token> &tokenList) {
 		}
 	}
 
-	return true;
+	std::cerr << "[RuntimeException] The program doesn’t have an exit instruction" << std::endl;
+	return false;
 }
