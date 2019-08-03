@@ -14,12 +14,13 @@ class Vm {
 
 		Vm &operator=(Vm const &rhs);
 
-		std::vector<IOperand *>	getStack() const;
+		std::vector<IOperand const *>	getStack() const;
 
 		bool	run(std::vector<Token> &tokenList);
 	private:
-		std::vector<IOperand *>			_stack;
+		std::vector<IOperand const *>	_stack;
 		static std::vector<InstrFunc>	_instrFuncs;
+		Factory							_factory;
 };
 
 #endif

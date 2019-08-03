@@ -31,13 +31,13 @@ Vm &Vm::operator=(Vm const &rhs) {
 	return *this;
 }
 
-std::vector<IOperand *>	Vm::getStack() const { return _stack; }
+std::vector<IOperand const *>	Vm::getStack() const { return _stack; }
 
 
 bool	Vm::run(std::vector<Token> &tokenList) {
 	for (auto token : tokenList) {
 		try {
-			Vm::_instrFuncs[token.getInstruction()](_stack, token.getParam());
+			Vm::_instrFuncs[token.getInstruction()](_factory, _stack, token.getParam());
 		}
 		catch(const Exception::RuntimeException& e) {
 			std::cerr << "[RuntimeException] Line " << token.getLineNb() << " : " << e.what() << '\n';
