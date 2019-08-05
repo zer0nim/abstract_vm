@@ -343,3 +343,10 @@ void	instrXor(Factory &factory, std::vector<IOperand const *> &stack, Value *par
 	eOperandType resType = (lhs->getPrecision() >= rhs->getPrecision()) ? lhs->getType() : rhs->getType();
 	stack.push_back(factory.createOperand(resType, strm.str()));
 }
+
+// • clear: clear the stack
+void	instrClear(Factory &factory, std::vector<IOperand const *> &stack, Value *param) {
+	(void)factory; // unused param
+	(void)param; // unused param
+	stack.clear();
+}

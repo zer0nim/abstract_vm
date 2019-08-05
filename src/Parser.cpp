@@ -17,14 +17,15 @@ std::vector<bool> Parser::_instrsTakeParam = {
 	true,	// eInstruction::Push
 	false,	// eInstruction::Sub
 	// bonus
-	false, // eInstruction::Abs
-	false, // eInstruction::Min
-	false, // eInstruction::Max
-	false, // eInstruction::Pow
-	false, // eInstruction::Not
-	false, // eInstruction::And
-	false, // eInstruction::Or
-	false // eInstruction::Xor
+	false,	// eInstruction::Abs
+	false,	// eInstruction::Min
+	false,	// eInstruction::Max
+	false,	// eInstruction::Pow
+	false,	// eInstruction::Not
+	false,	// eInstruction::And
+	false,	// eInstruction::Or
+	false,	// eInstruction::Xor
+	false	// eInstruction::Clear
 };
 
 Parser::Parser() {

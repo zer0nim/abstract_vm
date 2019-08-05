@@ -14,8 +14,11 @@ pow
 dump
 pop
 
-; print "-\n"
+; print "-\n\n"
 push int8(95)
+print
+pop
+push int8(10)
 print
 pop
 push int8(10)
@@ -51,5 +54,26 @@ xor
 dump
 ; expect 1 (0001)
 pop
+
+; print "-\n\n"
+push int8(95)
+print
+pop
+push int8(10)
+print
+pop
+push int8(10)
+print
+pop
+
+; test clear
+push int8(42)
+push int8(3)
+push int8(-50)
+push int8(90)
+push int8(12)
+dump
+clear
+dump
 
 exit

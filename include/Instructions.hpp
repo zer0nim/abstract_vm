@@ -29,5 +29,6 @@ void	instrNot(Factory &factory, std::vector<IOperand const *> &stack, Value *par
 void	instrAnd(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
 void	instrOr(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
 void	instrXor(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
+void	instrClear(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
 
 #endif

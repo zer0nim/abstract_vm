@@ -22,7 +22,8 @@ std::vector<InstrFunc> Vm::_instrFuncs = {
 	&instrNot,		// eInstruction::Not
 	&instrAnd,		// eInstruction::And
 	&instrOr,		// eInstruction::Or
-	&instrXor		// eInstruction::Xor
+	&instrXor,		// eInstruction::Xor
+	&instrClear		// eInstruction::Clear
 };
 
 Vm::Vm() {

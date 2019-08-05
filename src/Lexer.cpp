@@ -27,7 +27,8 @@ std::vector<std::string>	Lexer::_instrsNames {
 	"not",		// eInstruction::Not
 	"and",		// eInstruction::And
 	"or",		// eInstruction::Or
-	"xor"		// eInstruction::Xor
+	"xor",		// eInstruction::Xor
+	"clear"		// eInstruction::Clear
 };
 
 std::vector<std::string>	Lexer::_valuesSyntax {
