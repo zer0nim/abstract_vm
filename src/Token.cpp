@@ -1,4 +1,6 @@
 #include "Token.hpp"
+#include "Lexer.hpp"
+#include <sstream>
 
 // used to print enum name
 std::unordered_map<int, std::string> Token::instructMap = {
@@ -46,6 +48,18 @@ Token &Token::operator=(Token const &rhs) {
 eInstruction	Token::getInstruction() const { return _instruction; }
 Value			*Token::getParam() const { return _param; }
 int	Token::getLineNb() const { return _lineNb; }
+
+std::string		Token::cleanFormat() const {
+	std::stringstream strm;
+	strm << Lexer::_instrsNames[getInstruction()];
+	if (getParam() != nullptr) {
+		strm << " " << Lexer::_typesNames[ getParam()->getOpType() ];
+		strm << "(" << getParam()->getData() << ")";
+	}
+
+	return strm.str();
+}
+
 
 std::ostream & operator << (std::ostream &out, const Token &c) {
 	out << "{ line: " << c.getLineNb()

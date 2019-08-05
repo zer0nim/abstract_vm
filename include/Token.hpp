@@ -19,6 +19,8 @@ class Token {
 		int				getLineNb() const;
 		Value			*getParam() const;
 
+		std::string		cleanFormat() const;
+
 		static std::unordered_map<int, std::string> instructMap;
 	private:
 		int				_lineNb;

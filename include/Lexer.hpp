@@ -21,9 +21,13 @@ class Lexer {
 		void	parseLine(std::string line, int lineNb);
 		bool	readFromFile(std::string filename);
 		bool	readFromStdin();
-	private:
-		std::vector<Token>			_tokenList;
+
 		static std::vector<std::string>	_instrsNames;
+		static std::vector<std::string>	_typesNames;
+	private:
+		std::vector<Token>				_tokenList;
+		static std::string				_nSyntax;
+		static std::string				_zSyntax;
 		static std::vector<std::string>	_valuesSyntax;
 
 		bool	createToken(int lineNb, eInstruction instr, std::string line, Token	&token);

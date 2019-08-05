@@ -1,4 +1,5 @@
 #include "Vm.hpp"
+#include "Lexer.hpp"
 #include "Exception.hpp"
 #include "termcolor.hpp"
 
@@ -45,14 +46,28 @@ Vm &Vm::operator=(Vm const &rhs) {
 std::vector<IOperand const *>	Vm::getStack() const { return _stack; }
 
 
-bool	Vm::run(std::vector<Token> &tokenList) {
+bool	Vm::run(std::vector<Token> &tokenList, bool verbose) {
 	for (auto token : tokenList) {
 		try {
+			if (verbose) {
+				std::cout << termcolor::cyan << token.cleanFormat() << termcolor::reset << std::endl;
+			}
+
 			// stop the execution on exit
 			if (token.getInstruction() == eInstruction::Exit)
 				return true;
 
 			Vm::_instrFuncs[token.getInstruction()](_factory, _stack, token.getParam());
+
+			if (verbose) {
+				std::cout << termcolor::green << "stack {";
+				for (auto it = _stack.rbegin(); it != _stack.rend(); ++it) {
+					if (it != _stack.rbegin())
+						std::cout << ", ";
+					std::cout << (*it)->toString();
+				}
+				std::cout << "}" << termcolor::reset << std::endl << std::endl;
+			}
 		}
 		catch(const Exception::RuntimeException& e) {
 			std::cerr << termcolor::red << "[RuntimeException] Line " << token.getLineNb() << " : " << e.what() << termcolor::reset << std::endl;

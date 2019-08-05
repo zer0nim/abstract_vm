@@ -31,12 +31,23 @@ std::vector<std::string>	Lexer::_instrsNames {
 	"clear"		// eInstruction::Clear
 };
 
+std::vector<std::string>	Lexer::_typesNames {
+	"int8",		// eOperandType::Int8
+	"int16",	// eOperandType::Int16
+	"int32",	// eOperandType::Int32
+	"float",	// eOperandType::Float
+	"double"	// eOperandType::Double
+};
+
+std::string	Lexer::_nSyntax = "[-]?[0-9]+";
+std::string	Lexer::_zSyntax = "[-]?[0-9]+.[0-9]+";
+
 std::vector<std::string>	Lexer::_valuesSyntax {
-	"int8\\(([-]?[0-9]+)\\)",			// eOperandType::Int8
-	"int16\\(([-]?[0-9]+)\\)",			// eOperandType::Int16
-	"int32\\(([-]?[0-9]+)\\)",			// eOperandType::Int32
-	"float\\(([-]?[0-9]+.[0-9]+)\\)",	// eOperandType::Float
-	"double\\(([-]?[0-9]+.[0-9]+)\\)"	// eOperandType::Double
+	Lexer::_typesNames[0] + "\\((" + Lexer::_nSyntax + ")\\)",			// eOperandType::Int8
+	Lexer::_typesNames[1] + "\\((" + Lexer::_nSyntax + ")\\)",			// eOperandType::Int16
+	Lexer::_typesNames[2] + "\\((" + Lexer::_nSyntax + ")\\)",			// eOperandType::Int32
+	Lexer::_typesNames[3] + "\\((" + Lexer::_zSyntax + ")\\)",	// eOperandType::Float
+	Lexer::_typesNames[4] + "\\((" + Lexer::_zSyntax + ")\\)"	// eOperandType::Double
 };
 
 Lexer::Lexer() {

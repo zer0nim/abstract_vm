@@ -16,7 +16,7 @@ class Vm {
 
 		std::vector<IOperand const *>	getStack() const;
 
-		bool	run(std::vector<Token> &tokenList);
+		bool	run(std::vector<Token> &tokenList, bool verbose);
 	private:
 		std::vector<IOperand const *>	_stack;
 		static std::vector<InstrFunc>	_instrFuncs;
