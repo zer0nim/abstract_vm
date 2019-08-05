@@ -1,54 +1,48 @@
 #include "Vm.hpp"
 #include "Lexer.hpp"
 #include "Parser.hpp"
-#include <regex>
+#include <unistd.h>
 
 int	usage() {
-	std::cout << "usage: ./avm [--verbose | -v] [filename]" << std::endl;
+	std::cout << "usage: ./avm [-vVcC] [filename]" << std::endl;
 	return 1;
 }
 
-int main(int argc, char const *argv[]) {
+int main(int argc, char *argv[]) {
 	Lexer		lexer;
 	Parser		parser;
 	Vm			vm;
 
-	// verbose option
-	std::string	space = "[^\\S\\r\\n]*";
-	std::string	verboseReg = "^" + space + "((-v)|(--verbose))" + space + "$";
-	bool		verbose = false;
+	// for command params
+	int		opt;
+	bool	verbose = false;
+	bool	clean = false;
+
+	// parse params
+	while ((opt = getopt(argc, argv, "vVcC")) != EOF) {
+        switch(opt) {
+            case 'v': case 'V':
+				verbose = true;
+				break;
+            case 'c': case 'C':
+				clean = true;
+				break;
+            case '?': default:
+				return usage();
+        }
+	}
+
+	// check for undesired extra param
+	if (argc - optind > 1)
+		return usage();
 
 	// Use lexer to convert the program to Token
-	if (argc > 3) {
-		return usage();
-	} else if (argc > 1) {
-		if (argc == 2) {
-			// ./avm --verbose
-			if (std::regex_match(argv[1], std::regex(verboseReg))) {
-				verbose = true;
-				if (!lexer.readFromStdin())
-					return 1;
-			} else { // ./avm filename
-				if (!lexer.readFromFile(argv[1]))
-					return 1;
-			}
-		}
-		else {
-			// ./avm --verbose filename
-			if (std::regex_match(argv[1], std::regex(verboseReg))) {
-				verbose = true;
-				if (!lexer.readFromFile(argv[2]))
-					return 1;
-			} // ./avm filename --verbose
-			else if (std::regex_match(argv[2], std::regex(verboseReg))) {
-				verbose = true;
-				if (!lexer.readFromFile(argv[1]))
-					return 1;
-			} else {
-				return usage();
-			}
-		}
+	if (argc - optind == 1) {
+		// parse program from file
+		if (!lexer.readFromFile(argv[optind]))
+			return 1;
 	} else {
+		// parse program from stdin
 		if (!lexer.readFromStdin())
 			return 1;
 	}
