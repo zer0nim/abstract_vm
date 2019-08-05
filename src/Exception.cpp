@@ -44,3 +44,9 @@ const char* Exception::FalseAssertion::what() const throw() {
 const char* Exception::needTwoValuesInStack::what() const throw() {
     return ("The stack is composed of strictly less that two values when an arithmetic instruction is executed.");
 }
+const char* Exception::EmptyStack::what() const throw() {
+    return ("Instruction need at least one value in the stack");
+}
+const char* Exception::NeedInteger::what() const throw() {
+    return ("Instruction need an integer type");
+}

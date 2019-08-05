@@ -55,6 +55,14 @@ class Exception {
 			public:
 				virtual const char* what() const throw();
 		};
+		class EmptyStack : public RuntimeException {
+			public:
+				virtual const char* what() const throw();
+		};
+		class NeedInteger : public RuntimeException {
+			public:
+				virtual const char* what() const throw();
+		};
 	private:
 		Exception();
 		~Exception();

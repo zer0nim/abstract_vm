@@ -19,4 +19,15 @@ void	instrPrint(Factory &factory, std::vector<IOperand const *> &stack, Value *p
 void	instrPush(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
 void	instrSub(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
 
+// v__Bonus_________________________
+
+void	instrAbs(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
+void	instrMin(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
+void	instrMax(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
+void	instrPow(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
+void	instrNot(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
+void	instrAnd(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
+void	instrOr(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
+void	instrXor(Factory &factory, std::vector<IOperand const *> &stack, Value *param);
+
 #endif

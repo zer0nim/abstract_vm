@@ -1,6 +1,8 @@
 #include "Instructions.hpp"
 #include "Exception.hpp"
+#include <sstream>
 #include <string>
+#include <cmath>
 
 // • add: Unstacks the first two values on the stack, adds them together and stacks the
 // result. If the number of values on the stack is strictly inferior to 2, the program
@@ -159,4 +161,185 @@ void	instrSub(Factory &factory, std::vector<IOperand const *> &stack, Value *par
 	stack.pop_back();
 
 	stack.push_back(*lhs - *rhs);
+}
+
+// v__Bonus_________________________
+
+// • abs: abs function
+// apply abs function to the top of the stack
+void	instrAbs(Factory &factory, std::vector<IOperand const *> &stack, Value *param) {
+	(void)param; // unused param
+
+	if (stack.empty())
+		throw Exception::EmptyStack();
+
+	IOperand const *top = stack.back();
+	stack.pop_back();
+	double res = std::abs(std::stod(top->toString()));
+
+	std::stringstream strm;
+	strm << res;
+
+	stack.push_back(factory.createOperand(top->getType(), strm.str()));
+}
+
+// • min: print the min value of the stack
+void	instrMin(Factory &factory, std::vector<IOperand const *> &stack, Value *param) {
+	(void)factory; // unused param
+	(void)param; // unused param
+
+	if (stack.empty())
+		throw Exception::EmptyStack();
+
+	IOperand const * minOp = stack.back();
+	double min = std::stod(minOp->toString());
+	for (IOperand const *op : stack) {
+		if (std::stod(op->toString()) < min) {
+			minOp = op;
+			min = std::stod(minOp->toString());
+		}
+	}
+
+	std::cout << "min: " << minOp->toString() << std::endl;
+}
+
+// • max: print the max value of the stack
+void	instrMax(Factory &factory, std::vector<IOperand const *> &stack, Value *param) {
+	(void)factory; // unused param
+	(void)param; // unused param
+
+	if (stack.empty())
+		throw Exception::EmptyStack();
+
+	IOperand const * maxOp = stack.back();
+	double max = std::stod(maxOp->toString());
+	for (IOperand const *op : stack) {
+		if (std::stod(op->toString()) > max) {
+			maxOp = op;
+			max = std::stod(maxOp->toString());
+		}
+	}
+
+	std::cout << "max: " << maxOp->toString() << std::endl;
+}
+
+// • pow: power function
+// lhs ^ rhs
+void	instrPow(Factory &factory, std::vector<IOperand const *> &stack, Value *param) {
+	(void)param; // unused param
+
+	if (stack.size() < 2)
+		throw Exception::needTwoValuesInStack();
+
+	IOperand const *rhs = stack.back();
+	stack.pop_back();
+	IOperand const *lhs = stack.back();
+	stack.pop_back();
+
+	double res = std::pow(std::stod(lhs->toString()), std::stod(rhs->toString()));
+	std::stringstream strm;
+	strm << res;
+
+	eOperandType resType = (lhs->getPrecision() >= rhs->getPrecision()) ? lhs->getType() : rhs->getType();
+	stack.push_back(factory.createOperand(resType, strm.str()));
+}
+
+// • not: bitwise not
+// need integer at the top of the stack
+// all bits in top are flipped
+void	instrNot(Factory &factory, std::vector<IOperand const *> &stack, Value *param) {
+	(void)param; // unused param
+
+	if (stack.empty())
+		throw Exception::EmptyStack();
+
+	IOperand const *top = stack.back();
+
+	if (top->getType() == eOperandType::Double || top->getType() == eOperandType::Float)
+		throw Exception::NeedInteger();
+
+	stack.pop_back();
+	int res = ~std::stoi(top->toString());
+	std::stringstream strm;
+	strm << res;
+
+	stack.push_back(factory.createOperand(top->getType(), strm.str()));
+}
+
+// • and: bitwise AND
+// need two integer at the top of the stack
+// each bit in lhs AND each bit in rhs
+void	instrAnd(Factory &factory, std::vector<IOperand const *> &stack, Value *param) {
+	(void)param; // unused param
+
+	if (stack.size() < 2)
+		throw Exception::needTwoValuesInStack();
+
+	if ((stack[stack.size() - 1])->getType() == eOperandType::Double || (stack[stack.size() - 1])->getType() == eOperandType::Float
+	|| (stack[stack.size() - 2])->getType() == eOperandType::Double || (stack[stack.size() - 2])->getType() == eOperandType::Float)
+		throw Exception::NeedInteger();
+
+	IOperand const *rhs = stack.back();
+	stack.pop_back();
+	IOperand const *lhs = stack.back();
+	stack.pop_back();
+
+	int res = std::stoi(lhs->toString()) & std::stoi(rhs->toString());
+	std::stringstream strm;
+	strm << res;
+
+	eOperandType resType = (lhs->getPrecision() >= rhs->getPrecision()) ? lhs->getType() : rhs->getType();
+	stack.push_back(factory.createOperand(resType, strm.str()));
+}
+
+// • or: bitwise OR
+// need two integer at the top of the stack
+// each bit in lhs OR each bit in rhs
+void	instrOr(Factory &factory, std::vector<IOperand const *> &stack, Value *param) {
+	(void)param; // unused param
+
+	if (stack.size() < 2)
+		throw Exception::needTwoValuesInStack();
+
+	if ((stack[stack.size() - 1])->getType() == eOperandType::Double || (stack[stack.size() - 1])->getType() == eOperandType::Float
+	|| (stack[stack.size() - 2])->getType() == eOperandType::Double || (stack[stack.size() - 2])->getType() == eOperandType::Float)
+		throw Exception::NeedInteger();
+
+	IOperand const *rhs = stack.back();
+	stack.pop_back();
+	IOperand const *lhs = stack.back();
+	stack.pop_back();
+
+	int res = std::stoi(lhs->toString()) | std::stoi(rhs->toString());
+	std::stringstream strm;
+	strm << res;
+
+	eOperandType resType = (lhs->getPrecision() >= rhs->getPrecision()) ? lhs->getType() : rhs->getType();
+	stack.push_back(factory.createOperand(resType, strm.str()));
+}
+
+// • xor: bitwise XOR
+// need two integer at the top of the stack
+// each bit in lhs XOR each bit in rhs
+void	instrXor(Factory &factory, std::vector<IOperand const *> &stack, Value *param) {
+	(void)param; // unused param
+
+	if (stack.size() < 2)
+		throw Exception::needTwoValuesInStack();
+
+	if ((stack[stack.size() - 1])->getType() == eOperandType::Double || (stack[stack.size() - 1])->getType() == eOperandType::Float
+	|| (stack[stack.size() - 2])->getType() == eOperandType::Double || (stack[stack.size() - 2])->getType() == eOperandType::Float)
+		throw Exception::NeedInteger();
+
+	IOperand const *rhs = stack.back();
+	stack.pop_back();
+	IOperand const *lhs = stack.back();
+	stack.pop_back();
+
+	int res = std::stoi(lhs->toString()) ^ std::stoi(rhs->toString());
+	std::stringstream strm;
+	strm << res;
+
+	eOperandType resType = (lhs->getPrecision() >= rhs->getPrecision()) ? lhs->getType() : rhs->getType();
+	stack.push_back(factory.createOperand(resType, strm.str()));
 }

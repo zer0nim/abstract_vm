@@ -18,7 +18,16 @@ std::vector<std::string>	Lexer::_instrsNames {
 	"pop",		// eInstruction::Pop
 	"print",	// eInstruction::Print
 	"push",		// eInstruction::Push
-	"sub"		// eInstruction::Sub
+	"sub",		// eInstruction::Sub
+	// bonus
+	"abs",		// eInstruction::Abs
+	"min",		// eInstruction::Min
+	"max",		// eInstruction::Max
+	"pow",		// eInstruction::Pow
+	"not",		// eInstruction::Not
+	"and",		// eInstruction::And
+	"or",		// eInstruction::Or
+	"xor"		// eInstruction::Xor
 };
 
 std::vector<std::string>	Lexer::_valuesSyntax {

@@ -3,17 +3,26 @@
 #include "termcolor.hpp"
 
 std::vector<InstrFunc> Vm::_instrFuncs = {
-	&instrAdd,
-	&instrAssert,
-	&instrDiv,
-	&instrDump,
-	nullptr, // exit instruction
-	&instrMod,
-	&instrMul,
-	&instrPop,
-	&instrPrint,
-	&instrPush,
-	&instrSub
+	&instrAdd,		// eInstruction::Add
+	&instrAssert,	// eInstruction::Assert
+	&instrDiv,		// eInstruction::Div
+	&instrDump,		// eInstruction::Dump
+	nullptr,		// eInstruction::Exit
+	&instrMod,		// eInstruction::Mod
+	&instrMul,		// eInstruction::Mul
+	&instrPop,		// eInstruction::Pop
+	&instrPrint,	// eInstruction::Print
+	&instrPush,		// eInstruction::Push
+	&instrSub,		// eInstruction::Sub
+	// bonus
+	&instrAbs,		// eInstruction::Abs
+	&instrMin,		// eInstruction::Min
+	&instrMax,		// eInstruction::Max
+	&instrPow,		// eInstruction::Pow
+	&instrNot,		// eInstruction::Not
+	&instrAnd,		// eInstruction::And
+	&instrOr,		// eInstruction::Or
+	&instrXor		// eInstruction::Xor
 };
 
 Vm::Vm() {
