@@ -140,7 +140,7 @@ bool	Lexer::readFromFile(std::string filename) {
 	return exitStatus;
 }
 
-bool	Lexer::readFromStdin() {
+bool	Lexer::readFromStdin(bool continueOnError) {
 	bool exitStatus = true;
 	// parse stdin line by line
 	std::string line;
@@ -149,7 +149,8 @@ bool	Lexer::readFromStdin() {
 			parseLine(line, lineNb);
 		}
 		catch(const Exception::LexerException& e) {
-			exitStatus = false;
+			if (!continueOnError)
+				exitStatus = false;
 			std::cerr << termcolor::red << "[LexerException] Line " << lineNb << " : " << e.what() << termcolor::reset << std::endl;
 		}
 		if (line.find(";;") != std::string::npos)

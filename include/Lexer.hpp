@@ -20,7 +20,7 @@ class Lexer {
 
 		void	parseLine(std::string line, int lineNb);
 		bool	readFromFile(std::string filename);
-		bool	readFromStdin();
+		bool	readFromStdin(bool continueOnError);
 
 		static std::vector<std::string>	_instrsNames;
 		static std::vector<std::string>	_typesNames;

@@ -15,12 +15,13 @@ int main(int argc, char *argv[]) {
 
 	// for command params
 	int		opt;
-	bool	verbose = false;
-	bool	cleanSyntax = false;
-	bool	stopOnWarning = false;
+	bool	verbose = false;			// -v
+	bool	cleanSyntax = false;		// -c
+	bool	stopOnWarning = false;		// -w
+	bool	continueOnError = false;	// -e
 
 	// parse params
-	while ((opt = getopt(argc, argv, "vVcCwW")) != EOF) {
+	while ((opt = getopt(argc, argv, "vVcCwWeE")) != EOF) {
         switch(opt) {
             case 'v': case 'V':
 				verbose = true;
@@ -30,6 +31,9 @@ int main(int argc, char *argv[]) {
 				break;
             case 'w': case 'W':
 				stopOnWarning = true;
+				break;
+            case 'e': case 'E':
+				continueOnError = true;
 				break;
             case '?': default:
 				return usage();
@@ -47,7 +51,7 @@ int main(int argc, char *argv[]) {
 			return 1;
 	} else {
 		// parse program from stdin
-		if (!lexer.readFromStdin())
+		if (!lexer.readFromStdin(continueOnError))
 			return 1;
 	}
 
