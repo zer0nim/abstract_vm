@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 	// for command params
 	int		opt;
 	bool	verbose = false;
-	bool	clean = false;
+	bool	cleanSyntax = false;
 
 	// parse params
 	while ((opt = getopt(argc, argv, "vVcC")) != EOF) {
@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 				verbose = true;
 				break;
             case 'c': case 'C':
-				clean = true;
+				cleanSyntax = true;
 				break;
             case '?': default:
 				return usage();
@@ -50,6 +50,12 @@ int main(int argc, char *argv[]) {
 	// Read Token and verify grammar
 	if (!parser.verifyGrammar(lexer.getTokenList()))
 		return 1;
+
+	// if bonus cleanSyntax is enabled, print the program with syntax highlighted
+	if (cleanSyntax) {
+		vm.syntaxHighlight(lexer.getTokenList());
+		return 0;
+	}
 
 	// Execute the program
 	if (!vm.run(lexer.getTokenList(), verbose))

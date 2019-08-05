@@ -50,7 +50,9 @@ bool	Vm::run(std::vector<Token> &tokenList, bool verbose) {
 	for (auto token : tokenList) {
 		try {
 			if (verbose) {
-				std::cout << termcolor::cyan << token.cleanFormat() << termcolor::reset << std::endl;
+				std::cout << termcolor::cyan;
+				token.cleanFormat();
+				std::cout << termcolor::reset;
 			}
 
 			// stop the execution on exit
@@ -77,4 +79,10 @@ bool	Vm::run(std::vector<Token> &tokenList, bool verbose) {
 
 	std::cerr << termcolor::red << "[RuntimeException] The program doesn’t have an exit instruction" << termcolor::reset << std::endl;
 	return false;
+}
+
+void	Vm::syntaxHighlight(std::vector<Token> &tokenList) {
+	for (auto token : tokenList) {
+		token.cleanFormat(true);
+	}
 }

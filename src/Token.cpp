@@ -1,6 +1,6 @@
 #include "Token.hpp"
 #include "Lexer.hpp"
-#include <sstream>
+#include "termcolor.hpp"
 
 // used to print enum name
 std::unordered_map<int, std::string> Token::instructMap = {
@@ -47,17 +47,25 @@ Token &Token::operator=(Token const &rhs) {
 
 eInstruction	Token::getInstruction() const { return _instruction; }
 Value			*Token::getParam() const { return _param; }
-int	Token::getLineNb() const { return _lineNb; }
+int				Token::getLineNb() const { return _lineNb; }
 
-std::string		Token::cleanFormat() const {
-	std::stringstream strm;
-	strm << Lexer::_instrsNames[getInstruction()];
-	if (getParam() != nullptr) {
-		strm << " " << Lexer::_typesNames[ getParam()->getOpType() ];
-		strm << "(" << getParam()->getData() << ")";
+void			Token::cleanFormat(bool syntaxOn) const {
+	if (syntaxOn) {
+		std::cout << termcolor::yellow << Lexer::_instrsNames[getInstruction()];
+		std::cout << termcolor::reset;
+		if (getParam() != nullptr) {
+			std::cout << " " << termcolor::magenta << Lexer::_typesNames[getParam()->getOpType()];
+			std::cout << termcolor::reset;
+			std::cout << "(" << termcolor::cyan << getParam()->getData() << termcolor::reset << ")";
+		}
+	} else {
+		std::cout << Lexer::_instrsNames[getInstruction()];
+		if (getParam() != nullptr) {
+			std::cout << " " << Lexer::_typesNames[getParam()->getOpType()];
+			std::cout << "(" << getParam()->getData() << ")";
+		}
 	}
-
-	return strm.str();
+	std::cout << std::endl;
 }
 
 
