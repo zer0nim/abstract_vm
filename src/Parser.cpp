@@ -44,7 +44,7 @@ Parser &Parser::operator=(Parser const &rhs) {
 	return *this;
 }
 
-bool	Parser::verifyGrammar(std::vector<Token> &tokenList) const {
+bool	Parser::verifyGrammar(std::vector<Token> &tokenList, bool stopOnWarning) const {
 	bool exitStatus = true;
 	bool unreachableWarn = true;
 
@@ -64,6 +64,8 @@ bool	Parser::verifyGrammar(std::vector<Token> &tokenList) const {
 				unreachableWarn = false; // to avoid to repeat the same warning
 				std::cout << termcolor::yellow << "[ParserWarning] Line " << (*(it + 1)).getLineNb()
 					<< " : Code after the exit instruction is unreachable" << termcolor::reset << std::endl;
+				if (stopOnWarning)
+					exitStatus = false;
 			}
 		}
 		catch(const Exception::ParserException& e) {

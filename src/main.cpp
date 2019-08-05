@@ -17,15 +17,19 @@ int main(int argc, char *argv[]) {
 	int		opt;
 	bool	verbose = false;
 	bool	cleanSyntax = false;
+	bool	stopOnWarning = false;
 
 	// parse params
-	while ((opt = getopt(argc, argv, "vVcC")) != EOF) {
+	while ((opt = getopt(argc, argv, "vVcCwW")) != EOF) {
         switch(opt) {
             case 'v': case 'V':
 				verbose = true;
 				break;
             case 'c': case 'C':
 				cleanSyntax = true;
+				break;
+            case 'w': case 'W':
+				stopOnWarning = true;
 				break;
             case '?': default:
 				return usage();
@@ -48,7 +52,7 @@ int main(int argc, char *argv[]) {
 	}
 
 	// Read Token and verify grammar
-	if (!parser.verifyGrammar(lexer.getTokenList()))
+	if (!parser.verifyGrammar(lexer.getTokenList(), stopOnWarning))
 		return 1;
 
 	// if bonus cleanSyntax is enabled, print the program with syntax highlighted
