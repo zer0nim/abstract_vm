@@ -4,7 +4,7 @@
 #include <unistd.h>
 
 int	usage() {
-	std::cout << "usage: ./avm [-vVcC] [filename]" << std::endl;
+	std::cout << "usage: ./avm [-vVcCwWeE] [filename]" << std::endl;
 	return 1;
 }
 
