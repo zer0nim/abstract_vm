@@ -71,6 +71,7 @@ std::vector<Token> Lexer::getTokenListCopy() const { return _tokenList; }
 
 bool	Lexer::createToken(int lineNb, eInstruction instr, std::string line, Token	&token) {
 	std::string	space = "[^\\S\\r\\n]*";
+	std::string	oneOrMoreSpace = "[^\\S\\r\\n]+";
 	std::string	regexStr = "^" + space + Lexer::_instrsNames[instr] + space + "(;.*)?$";
 
 	// test without param
@@ -83,7 +84,7 @@ bool	Lexer::createToken(int lineNb, eInstruction instr, std::string line, Token	
 
 		// test different types of value (int32, float, ...)
 		for (auto it = Lexer::_valuesSyntax.begin(); it != Lexer::_valuesSyntax.end(); ++it) {
-			regexStr = "^" + space + Lexer::_instrsNames[instr] + space + *it + space + "(;.*)?$";
+			regexStr = "^" + space + Lexer::_instrsNames[instr] + oneOrMoreSpace + *it + space + "(;.*)?$";
 
 			if (std::regex_match(line.c_str(), m, std::regex(regexStr))) {
 				eOperandType opType = static_cast<eOperandType>(it - Lexer::_valuesSyntax.begin());
